@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CSCI4140 Final Project Demo Site</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/additional.css">
+    <script src="../lib/camam.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+    <!-- jquery -->
+    
+    <script src="editor.js"></script>
+    <!-- bootstrap -->
+    <div class ="profile-info">
+        <h1 align="center"><b>CSCI4140 Final Project Demo Site<br>Online User-Specific Image Editor</b></h1>
+    </div>
+    <div class="container text-center" id="editor">
+        <div class="row">
+            <div class="col">
+              <h3>Original Image</h3>
+              <canvas id="original_canvas" width="400" height="400"></canvas>
+            </div>
+            <div class="col">
+              <h3>Edited Image</h3>
+              <canvas id="edit_canvas" width="400" height="400"></canvas>
+            </div>
+            <div class="fliters">
+                <button class="btn btn-primary" id="restartbtn" onclick="restartediting()">Restart</button>
+                <button class="btn btn-success" id="savebtn" onclick="generatedownload()">Save Image</button>
+                <button class="btn btn-danger" id="cancelbtn" onclick="returntomain()">Cancel</button>
+            </div>
+        </div>
+        <div class="row">
+            <h2>Part1: CamanJS on the whole image</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <label for="brightness">Brightness</label>
+                    <input id="brightness" name="edit" type="range" min="-20" max="20" value="0">
+                    <label for="contrast">Contrast</label>
+                    <input id="contrast" name="edit" type="range" min="-40" max="40" value="0">
+                    <label for="saturation">Saturation</label>
+                    <input id="saturation" name="edit" type="range" min="-100" max="100" value="0">
+                </div>
+            </div>
+            <nav class="fliters">
+                <button class="btn btn-success" id="resetbtn">Reset</button>
+                <button class="btn btn-primary" id="noisebtn">Noise</button>
+                <button class="btn btn-primary" id="pinholebtn">Pin Hole</button>
+                <button class="btn btn-warning" id="oldpaperbtn">Old Paper</button>
+                <button class="btn btn-warning" id="pleasantbtn">Pleasant</button>
+            </nav>
+        </div>
+        <div class="row">
+            <h2>Part2: Select the object you want to edit</h2>
+            <br>
+            <h4>You can enter the object name<sup>2</sup> below, then you can select a target region to edit</h4>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="text-input" placeholder="Input the object name here">
+                        <button class="btn btn-primary" onclick="object_detect()">search</button>
+                    </div>
+                    <div id="object_btns" style="display: none;">
+                        <div id="image-boxes-object" class="row mt-4"></div>
+                        <div class="col-md-12 justify-content-center" >
+                            <button class="btn btn-primary" onclick="object_style()" id="object_style btn">Style Transfer</button>
+                            <button class="btn btn-primary" onclick="object_caman()" id="object_camamnjs btn">Regular CamanJS</button>
+                            <button class="btn btn-danger" onclick="cancel_object()" id="object_cancel btn">Cancel</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row justify-content-center" id="object_style" style="display: none;">
+                <div class="row justify-content-center">
+                    <canvas id="show_canvas" width="200" height="200"></canvas>
+                </div>
+                <nav class="fliters">
+                    <button class="btn btn-success" id="object_apply" onclick="object_style_done()">Apply</button>
+                    <button class="btn btn-danger" id="object_s_cancel" onclick="object_style_cancel()">Cancel</button>
+                </nav>
+            </div>
+            <div class="row justify-content-center" id="object_caman" style="display: none;">
+                <div class="row justify-content-center">
+                    <canvas id="object_canvas" width="200" height="200"></canvas>
+                    <div class="col-lg-12">
+                        <label for="brightness_o">Brightness</label>
+                        <input id="brightness_o" name="object" type="range" min="-20" max="20" value="0">
+                        <label for="contrast_o">Contrast</label>
+                        <input id="contrast_o" name="object" type="range" min="-40" max="40" value="0">
+                        <label for="saturation_o">Saturation</label>
+                        <input id="saturation_o" name="object" type="range" min="-100" max="100" value="0">
+                    </div>
+                    <nav class="fliters">
+                        <button class="btn btn-success" id="resetbtn_o">Reset</button>
+                        <button class="btn btn-primary" id="noisebtn_o">Noise</button>
+                        <button class="btn btn-primary" id="pinholebtn_o">Pin Hole</button>
+                        <button class="btn btn-warning" id="oldpaperbtn_o">Old Paper</button>
+                        <button class="btn btn-warning" id="pleasantbtn_o">Pleasant</button>
+                    </nav>
+                    <br>
+                    <nav class="fliters">
+                        <button class="btn btn-success" id="object_done" onclick="object_caman_done()">Done</button>
+                        <button class="btn btn-danger" id="object_cancel" onclick="object_caman_cancel()">Cancel</button>
+                    </nav>
+                </div>
+                
+            </div>
+        </div>
+        <div class="row">
+            <h2>Part3: Style transfer</h2>
+            <h3>You can upload your ideal style images here</h3> 
+            <div class="row center-content">
+                <div class="col-md-4 all-center-content outlined">
+                    <div class="all-center-content">
+                        <input type="file" id="file-input">
+                        <button class="btn btn-primary" onclick="uploadImage()">Upload</button>
+                    </div>
+                </div>
+                <div id="image-boxes-upload-style" class="col-md-12 all-center-content"></div>
+            </div>
+            <h3>Or, you can try these famous style images</h3>
+            <div class="row mt-4 center-content">
+                <div class="col-md-6 center-content">
+                    <div id="image-boxes-built" class="row mt-4"></div>
+                </div>
+            </div>
+            <h3>Moreover, you can select an image from Google</h3>
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="text-input-1" placeholder="Input the search key word here">
+                                <button class="btn btn-primary" onclick="confirmsearch()">search</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="image-boxes" class="row mt-4 justify-content-center"></div>
+                </div>
+            </div>
+            <div class="col-md-12 justify-content-center" style="display: block;">
+                <button class="btn btn-primary" onclick="confirmstyle()" id="select_style btn">Style Transfer</button>
+            </div>
+        </div>
+    </div>
+    <p align="left" class="p-3">
+        ------------------------------------ <br>
+        1. This is the demo site for CSCI4140 final project.<br>
+        2. The object detection class depend on COCO dataset, which has total 90 classes. You can click <a href="lib/coco91_indices.json" target="_blank">here</a> to review.<br>
+        3. The object detection may take about 10 sec to generate boxes. Please wait.<br>
+        4. Due to the tech limit, the detection result may be not totally correct.<br>
+        5. Images used here are all in ".jpg" format. If you upload or select an image with ".png" or ".gif" extension, there may be some bugs.<br>
+        6. The combination result of CamanJS may have some resize issue.
+    </p>
+</body>
+
+</html>
