@@ -26,8 +26,8 @@ In the style transfer part, users can upload their own style images (please use 
 6. To run the back-end server locally, you can go to `/mttm/` and run `node app.js` to create a port at `http:/localhost:3000`.
 7. To run the Google Image Search function, you need to follow the steps at [here](https://pypi.org/project/Google-Images-Search/) to get your own Google Image Search API key and Google project cx. Then, fill in the missing part in the `/mttm/code/search_image.py`.
 
-## Reference
-1. You may find the dataset [here](https://cocodataset.org/#home). You can find all the supported keywords [here](https://github.com/WYXG233/CSCI4140_project/blob/main/html/lib/coco91_indices.json)
+## Notes
+1. You may find the dataset [here](https://cocodataset.org/#home). You can also find all the supported keywords for our editor [here](https://github.com/WYXG233/CSCI4140_project/blob/main/html/lib/coco91_indices.json)
 2. The pre-trained pix2Seq model is originally implemented [here](https://github.com/JJJYmmm/Pix2SeqV2-Pytorch/tree/master).
 
 ---
