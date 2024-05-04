@@ -10,7 +10,7 @@ In the editor, you can upload your own content or style images. Of course, if yo
 
 ### Edit the Target Object Region
 
-Compared to the traditional image editor, which can only deal with the whole image, our editor can support users in searching for some objects' names and directly editing the target region. You can input some keywords to search whether the target object exists, and then our system will show a list of target region images to allow the user to choose. You can either use basic CamanJS or try style transfer and then combine the edited images with the original ones.
+Compared to the traditional image editor, which can only deal with the whole image, our editor can support users in searching for some objects' names and directly editing the target region. You can input some keywords to search whether the target object exists, and then our system will show a list of target region images to allow the user to choose. You can either use basic CamanJS or try style transfer and then combine the edited images with the original ones. The keywords of our systems are based on the COCO2017 datasets<sup>1</sup>. 
 
 ### Style Transfer
 
@@ -19,7 +19,7 @@ In the style transfer part, users can upload their own style images (please use 
 ## To run the code...
 
 1. Please download the pre-trained style transfer model's parameters [here](https://github.com/deepeshdm/Neural-Style-Transfer), and save the `model` folder into `/mttm/model`.
-2. Please download the pre-trained object detection model from  [here](https://drive.google.com/drive/folders/10qDkMPIpKpeErDgE85jx7bCVwV5I3L0c?usp=sharing)<sup>1</sup>, and save it to `/mttm/Pix2SeqV2-Pytorch-master/weights`.
+2. Please download the pre-trained object detection model from  [here](https://drive.google.com/drive/folders/10qDkMPIpKpeErDgE85jx7bCVwV5I3L0c?usp=sharing)<sup>2</sup>, and save it to `/mttm/Pix2SeqV2-Pytorch-master/weights`.
 3. Run `pip install -r requirements.txt` to download basic Python libraries. You may need to manually download some additional requirements that may not included.
 4. Move to `/mttm/` and run `npm install` to download NodeJS requirements.
 5. To run the front-end server locally, you can go to `/html/` and run `http-server` (you may need to install it through `npm install http-server`), then you can visit the website at `http://127.0.0.1:8080` or other local URL.
@@ -27,7 +27,8 @@ In the style transfer part, users can upload their own style images (please use 
 7. To run the Google Image Search function, you need to follow the steps at [here](https://pypi.org/project/Google-Images-Search/) to get your own Google Image Search API key and Google project cx. Then, fill in the missing part in the `/mttm/code/search_image.py`.
 
 ## Reference
-1. The pretrained pix2Seq model is originally implemented [here](https://github.com/JJJYmmm/Pix2SeqV2-Pytorch/tree/master).
+1. You may find the dataset [here](https://cocodataset.org/#home). You can find all the supported keywords [here](https://github.com/WYXG233/CSCI4140_project/blob/main/html/lib/coco91_indices.json)
+2. The pre-trained pix2Seq model is originally implemented [here](https://github.com/JJJYmmm/Pix2SeqV2-Pytorch/tree/master).
 
 ---
 
