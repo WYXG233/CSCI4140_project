@@ -1,6 +1,6 @@
 # CSCI4140 Project - Online User-Specific Image Editor
 
-Welcome to the CSCI4140 Group Project Page by Group 4. This project is to build an online user-specific image editor for which user can edit their own images with some specific objects, or try to transfer their images into some ideal style depends on their own choices. This document provides an overview of this project, including the setting up steps, functions of the website, .
+Welcome to the CSCI4140 Group Project Page by Group 4. This project is to build an online user-specific image editor for which user can edit their own images with some specific objects or try to transfer their images into some ideal style depending on their own choices. This document provides an overview of this project, including the setting up steps and functions of the website.
 
 ## Functions
 
@@ -10,25 +10,25 @@ In the editor, you can upload your own content or style images. Of course, if yo
 
 ### Edit the Target Object Region
 
-Compared to the traditional image editor, which can only deal with the whole image, our editor can support user to search some objects' names and directly edit the target region. You can input some keywords to search whether the target object is existed, then our system will show a list of target region images to allow user to choose. You can either use basic CamanJS or try style transfer and then combine the edited images to the original one.
+Compared to the traditional image editor, which can only deal with the whole image, our editor can support users in searching for some objects' names and directly editing the target region. You can input some keywords to search whether the target object exists, and then our system will show a list of target region images to allow the user to choose. You can either use basic CamanJS or try style transfer and then combine the edited images with the original ones.
 
 ### Style Transfer
 
-In the style transfer part, users can upload their own style images (please use `.jpg` format), or try some provided style images like the Starry Night, or select some images form Google. Yeah users can also performs changes on the whole image, or just changes some target regions.
+In the style transfer part, users can upload their own style images (please use `.jpg` format), try some provided style images like Starry Night, or select some images from Google. Yeah, users can also make changes to the whole image or just change some target regions.
 
 ## To run the code...
 
-1. Please download the pretrained style transfer model's parameters [here](https://github.com/deepeshdm/Neural-Style-Transfer), and save the `model` folder into `/mttm/model`.
-2. Please download the pretrained object detection model from  [here](https://drive.google.com/drive/folders/10qDkMPIpKpeErDgE85jx7bCVwV5I3L0c?usp=sharing)<sup>1</sup>, and save it to `/mttm/Pix2SeqV2-Pytorch-master/weights`.
-3. Run `pip install -r requirements.txt` to download basic python libaries. You may need to manully download some additional requirements which may not included.
+1. Please download the pre-trained style transfer model's parameters [here](https://github.com/deepeshdm/Neural-Style-Transfer), and save the `model` folder into `/mttm/model`.
+2. Please download the pre-trained object detection model from  [here](https://drive.google.com/drive/folders/10qDkMPIpKpeErDgE85jx7bCVwV5I3L0c?usp=sharing)<sup>1</sup>, and save it to `/mttm/Pix2SeqV2-Pytorch-master/weights`.
+3. Run `pip install -r requirements.txt` to download basic Python libraries. You may need to manually download some additional requirements that may not included.
 4. Move to `/mttm/` and run `npm install` to download NodeJS requirements.
-5. To run the front-end server locally, you can go to `/html/` and run `http-server` (you may need to install it through `npm install http-server`), then you can visit the website at `http://127.0.0.1:8080` or other local url.
+5. To run the front-end server locally, you can go to `/html/` and run `http-server` (you may need to install it through `npm install http-server`), then you can visit the website at `http://127.0.0.1:8080` or other local URL.
 6. To run the back-end server locally, you can go to `/mttm/` and run `node app.js` to create a port at `http:/localhost:3000`.
-7. To run the Google Image Search function, you need to follow the step at [here](https://pypi.org/project/Google-Images-Search/) to get your own Google Image Search api key and Google project cx. And then fill in the missing part in the `/mttm/code/search_image.py`.
+7. To run the Google Image Search function, you need to follow the steps at [here](https://pypi.org/project/Google-Images-Search/) to get your own Google Image Search API key and Google project cx. Then, fill in the missing part in the `/mttm/code/search_image.py`.
 
 ## Reference
 1. The pretrained pix2Seq model is originally implemented [here](https://github.com/JJJYmmm/Pix2SeqV2-Pytorch/tree/master).
 
 ---
 
-Thank you for visit this project. If you have any further questions, please feel free to contact with me.
+Thank you for visiting this project. If you have any further questions, please feel free to contact me.
