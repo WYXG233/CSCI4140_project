@@ -22,7 +22,7 @@ In the style transfer part, users can upload their own style images (please use 
 2. Please download the pre-trained object detection model from  [here](https://drive.google.com/drive/folders/10qDkMPIpKpeErDgE85jx7bCVwV5I3L0c?usp=sharing)<sup>2</sup>, and save it to `/mttm/Pix2SeqV2-Pytorch-master/weights`.
 3. Run `pip install -r requirements.txt` to download basic Python libraries. You may need to manually download some additional requirements that may not included.
 4. Move to `/mttm/` and run `npm install` to download NodeJS requirements.
-5. To run the front-end server locally, you can go to `/html/` and run `http-server` (you may need to install it through `npm install http-server`), then you can visit the website at `http://127.0.0.1:8080` or other local URL.
+5. To run the front-end server locally, you can go to `/html/` and run `http-server` (you may need to install it through `npm install http-server`), then you can visit the website at `http://127.0.0.1:8080` or other local URL. You can also use `http-server --cors` to allow CORS.
 6. To run the back-end server locally, you can go to `/mttm/` and run `node app.js` to create a port at `http:/localhost:3000`.
 7. To run the Google Image Search function, you need to follow the steps at [here](https://pypi.org/project/Google-Images-Search/) to get your own Google Image Search API key and Google project cx. Then, fill in the missing part in the `/mttm/code/search_image.py`.
 
