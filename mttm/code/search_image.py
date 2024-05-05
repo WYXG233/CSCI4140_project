@@ -6,14 +6,15 @@ key_word = sys.argv[1]
 method = sys.argv[2]
 folder_path = 'images/google_'+method+'/'
 
-api_key = "" # Your own google image api key here
-project_cx = "" # Your own google project cx here
+api_key = "AIzaSyBb1M2ocz2hILe4GuQDqC4-4lzNGpSrSoQ"
+project_cx = "e47ee93f5712847b6"
 gis = GoogleImagesSearch(api_key, project_cx)
 
 _search_params = {
     'q': key_word,
     'num': 5,
-    'fileType': 'jpg'
+    'fileType': 'jpg',
+    'imgSize': 'medium',
 }
 
 for root, dirs, files in os.walk(folder_path, topdown=False):
