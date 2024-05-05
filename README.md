@@ -1,6 +1,6 @@
 # CSCI4140 Project - Online User-Specific Image Editor
 
-Welcome to the CSCI4140 Group Project Page by Group 4. This project is to build an online user-specific image editor for which user can edit their own images with some specific objects or try to transfer their images into some ideal style depending on their own choices. This document provides an overview of this project, including the setting up steps and functions of the website.
+Welcome to the CSCI4140 Group Project Page by Group 15. This project is to build an online user-specific image editor for which user can edit their own images with some specific objects or try to transfer their images into some ideal style depending on their own choices. This document provides an overview of this project, including the setting up steps and functions of the website.
 
 ## Functions
 
