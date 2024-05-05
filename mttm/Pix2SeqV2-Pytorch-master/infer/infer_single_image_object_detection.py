@@ -96,6 +96,11 @@ if __name__ == '__main__':
         for file in files:
             file_path = os.path.join(root, file)
             os.remove(file_path)
+    folder_path = '../../../html/images/detected/'
+    for root, dirs, files in os.walk(folder_path, topdown=False):
+        for file in files:
+            file_path = os.path.join(root, file)
+            os.remove(file_path)
 
     existing_class = {}
     for bbox, category_id in zip(bboxes, labels):
