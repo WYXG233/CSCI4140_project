@@ -25,15 +25,21 @@
     <div class ="profile-info">
         <h1 align="center"><b>CSCI4140 Final Project Demo Site<br>Online User-Specific Image Editor</b></h1>
     <div class="container text-center">
-        <h1><b> Usage </b></h1> 
+        <h2>Click the Below button to start editing!</h2>
+        <h2>For more details about the project, please check our Github Page</h2>
+        
 <!-- <h2> </h2> -->
 <script>
     function goToMain(){
             console.log("prepare to change page");
             location.href = "./main/index.html";
-        }
+    }
+    function goToGithub(){
+        location.href = "https://github.com/WYXG233/CSCI4140_project/";
+    }
 </script>
-<button type="button" class="btn btn-primary" onclick="goToMain()">Start</button>
+<button type="button" class="btn btn-primary" onclick="goToMain()">Start</button><br>
+<button type="button" class="btn btn-success" onclick="goToGithub()">See Code In Github</button>
 </body>
 
 </html>
