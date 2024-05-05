@@ -60,7 +60,8 @@ function confirmsearch() {
                 imageBox.classList.add('col-md-2', 'image-box');
         
                 var image = document.createElement('img');
-                image.src = '../images/google_content/' +i+'.jpg';
+                var timestamp = new Date().getTime();
+                image.src = '../images/google_content/' +i+'.jpg?' + timestamp;
                 image.classList.add('img-fluid');
                 imageBox.appendChild(image);
 

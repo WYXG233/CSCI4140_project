@@ -24,7 +24,8 @@ function draw_Image() {
         var ctx_e = canvas_e.getContext('2d');
         ctx_e.drawImage(canvas, 0, 0);
     };
-    image.src = '../images/editing/1.jpg';
+    var timestamp = new Date().getTime();
+    image.src = '../images/editing/1.jpg?' + timestamp;
     console.log("draw editing image");
 }
 
@@ -42,15 +43,19 @@ function uploadImage() {
         processData: false,
         contentType: false,
         success: function (data) {
-            console.log("Response: ", data);
             var imageBoxes = document.getElementById('image-boxes-upload-style');
-            imageBoxes.innerHTML = '';
+            if (imageBoxes) {
+                while (imageBoxes.firstChild) {
+                    imageBoxes.removeChild(imageBoxes.firstChild);
+                }
+            }
             imageBoxes.classList.add('row');
             var imageBox = document.createElement('div');
             imageBox.classList.add('col-md-2', 'image-box');
 
             var image = document.createElement('img');
-            image.src = '../images/upload_style/1.jpg';
+            var timestamp = new Date().getTime();
+            image.src = '../images/upload_style/1.jpg?' + timestamp;
             image.classList.add('img-fluid');
             imageBox.appendChild(image);
 
@@ -111,22 +116,66 @@ function confirmstyle() {
                 
                     ctx.drawImage(image, 0, 0, width, height);
                 };
-                image.src = '../images/tmp/1.jpg';
+                var timestamp = new Date().getTime();
+                image.src = '../images/tmp/1.jpg?' + timestamp;
             }
         });
     }
 }
 
 function generatedownload() {
-    Caman('#edit_canvas', function (){
-        let a  = document.createElement('a');
-        a.href = this.toBase64();
-        a.download = Date() +'_image.jpg';
-        a.click();
-        // this.render(function (){
-        //     this.save('jpg');
-        // });
-    });
+    var image = new Image();
+    image.onload = function() {
+        var canvas = document.getElementById('edit_canvas');
+        var ctx = canvas.getContext('2d');
+        var maxWidth = canvas.width;
+        var maxHeight = canvas.height;
+    
+        let width = image.width;
+        let height = image.height;
+    
+        if (width > maxWidth || height > maxHeight) {
+            var scale = Math.min(maxWidth / width, maxHeight / height);
+            width *= scale;
+            height *= scale;
+        }
+
+        var tempCanvas = document.createElement('canvas');
+        // var tempCanvas = document.getElementById('tmp_canvas');
+        tempCanvas.width = width;
+        tempCanvas.height = height;
+        var tempCtx = tempCanvas.getContext('2d');
+
+        var imageData = ctx.getImageData(0, 0, width, height);
+
+        tempCtx.putImageData(imageData, 0, 0);
+
+        var originalCanvas = document.createElement('canvas');
+        // var originalCanvas = document.getElementById('tmp_canvas');
+        originalCanvas.width = image.width;
+        originalCanvas.height = image.height;
+        var originalCtx = originalCanvas.getContext('2d');
+        originalCtx.drawImage(
+            tempCanvas,
+            0,
+            0,
+            width,
+            height,
+            0,
+            0,
+            originalCanvas.width,
+            originalCanvas.height
+        );
+        setTimeout(function() {
+            let a  = document.createElement('a');
+            a.href = originalCanvas.toDataURL('image/jpeg');
+            a.download = 'csci_4140_editor_image.jpg';
+            a.click();
+        }.bind(this), 300);
+        
+    };
+    var timestamp = new Date().getTime();
+    image.src = '../images/editing/1.jpg?' + timestamp;
 }
 
 function returntomain() {
@@ -144,7 +193,6 @@ function object_detect() {
         contentType: "application/json",
         data: detect_content,
     }).done(function (data) {
-        console.log("received data", data);
         var valid = data.valid;
         var message = data.message;
         if (valid == 1){
@@ -158,14 +206,19 @@ function object_detect() {
             }
             else {
                 var imageBoxes = document.getElementById('image-boxes-object');
-                imageBoxes.innerHTML = '';
+                if (imageBoxes) {
+                    while (imageBoxes.firstChild) {
+                        imageBoxes.removeChild(imageBoxes.firstChild);
+                    }
+                }
                 imageBoxes.classList.add('row');
                 for (let i = 1; i <= isexist; i++) {
                     var imageBox = document.createElement('div');
                     imageBox.classList.add('col-md-2', 'image-box');
 
                     var image = document.createElement('img');
-                    image.src = '../images/detected/' + textInput + '_' + i + '.jpg';
+                    var timestamp = new Date().getTime();
+                    image.src = '../images/detected/' + textInput + '_' + i + '.jpg?' + timestamp;
                     image.classList.add('img-fluid');
                     imageBox.appendChild(image);
 
@@ -243,7 +296,8 @@ function object_style() {
                         }
                         ctx.drawImage(image, 0, 0, width, height);
                     };
-                    image.src = '../images/tmp_o/1.jpg';
+                    var timestamp = new Date().getTime();
+                    image.src = '../images/tmp_o/1.jpg?' + timestamp;
                     var check_button = document.getElementById('object_style');
                     check_button.style.display = 'block';
                 }
@@ -260,26 +314,22 @@ function object_caman() {
     }
     else {
         var canvas = document.getElementById('object_canvas');
-        var ctx = canvas.getContext('2d');
+        
         
         var image = new Image();
         
         image.onload = function() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            var maxWidth = canvas.width;
-            var maxHeight = canvas.height;
-        
             let width = image.width;
             let height = image.height;
-        
-            if (width > maxWidth || height > maxHeight) {
-                var scale = Math.min(maxWidth / width, maxHeight / height);
-                width *= scale;
-                height *= scale;
-            }
+            canvas.width = width;
+            canvas.height = height;
+
+            var ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(image, 0, 0, width, height);
         };
-        image.src = '../images/' + selectedValue;
+        var timestamp = new Date().getTime();
+        image.src = '../images/' + selectedValue + '?' + timestamp;
         var check_button = document.getElementById('object_caman');
         check_button.style.display = 'block';
     }
@@ -287,7 +337,11 @@ function object_caman() {
 
 function generate_built_style() {
     var imageBoxes = document.getElementById('image-boxes-built');
-    imageBoxes.innerHTML = '';
+    if (imageBoxes) {
+        while (imageBoxes.firstChild) {
+            imageBoxes.removeChild(imageBoxes.firstChild);
+        }
+    }
     imageBoxes.classList.add('row');
     var image_name = ['Starry_Night', 'Spring', 'The_Scream'];
     for (let i = 0; i < 3; i++) {
@@ -300,7 +354,8 @@ function generate_built_style() {
         imageBox.appendChild(title);
 
         var image = document.createElement('img');
-        image.src = '../images/style/' + image_name[i] + '.jpg';
+        var timestamp = new Date().getTime();
+        image.src = '../images/style/' + image_name[i] + '.jpg?' + timestamp;
         image.classList.add('img-fluid');
         imageBox.appendChild(image);
 
@@ -336,14 +391,19 @@ function confirmsearch() {
         }
         else {
             var imageBoxes = document.getElementById('image-boxes');
-            imageBoxes.innerHTML = '';
+            if (imageBoxes) {
+                while (imageBoxes.firstChild) {
+                    imageBoxes.removeChild(imageBoxes.firstChild);
+                }
+            }
             imageBoxes.classList.add('row');
             for (let i = 1; i < 6; i++) {
                 var imageBox = document.createElement('div');
                 imageBox.classList.add('col-md-2', 'image-box');
         
                 var image = document.createElement('img');
-                image.src = '../images/google_style/' +i+'.jpg';
+                var timestamp = new Date().getTime();
+                image.src = '../images/google_style/' +i+'.jpg?' + timestamp;
                 image.classList.add('img-fluid');
                 imageBox.appendChild(image);
 
@@ -401,9 +461,12 @@ function object_style_done() {
                 }
                 ctx.drawImage(image, 0, 0, width, height);
             };
-            image.src = '../images/editing_combine/1.jpg';
+            var timestamp = new Date().getTime();
+            image.src = '../images/editing_combine/1.jpg?' + timestamp;
             var check_button = document.getElementById('object_style');
             check_button.style.display = 'none';
+            var show_button = document.getElementById('object_btns');
+            show_button.style.display = 'none';
         }
     });
 }
@@ -482,9 +545,12 @@ function object_caman_done() {
                                 }
                                 ctx.drawImage(image, 0, 0, width, height);
                             };
-                            image.src = '../images/editing_combine/1.jpg';
+                            var timestamp = new Date().getTime();
+                            image.src = '../images/editing_combine/1.jpg?' + timestamp;
                             var check_button = document.getElementById('object_caman');
                             check_button.style.display = 'none';
+                            var show_button = document.getElementById('object_btns');
+                            show_button.style.display = 'none';
                         }
                     });
                 }
